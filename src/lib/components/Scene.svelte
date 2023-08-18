@@ -1,35 +1,16 @@
-<script>
-	import { T, useFrame } from '@threlte/core';
-	import { interactivity } from '@threlte/extras';
-	import { spring } from 'svelte/motion';
-	interactivity();
-	const scale = spring(1);
-	let rotation = 0;
-	useFrame((state, delta) => {
-		rotation += delta;
-	});
+<script lang="ts">
+	import { T } from '@threlte/core';
+	import { OrbitControls } from '@threlte/extras';
+	import { Debug } from '@threlte/rapier';
+	import Emitter from './Emitter.svelte';
+	import Ground from './Ground.svelte';
 </script>
 
-<T.PerspectiveCamera
-	makeDefault
-	position={[10, 10, 10]}
-	on:create={({ ref }) => {
-		ref.lookAt(0, 1, 0);
-	}}
-/>
-<T.DirectionalLight position={[0, 10, 10]} castShadow />
-<T.Mesh
-	rotation.y={rotation}
-	position.y={1}
-	scale={$scale}
-	on:pointerenter={() => scale.set(1.5)}
-	on:pointerleave={() => scale.set(1)}
-	castShadow
->
-	<T.BoxGeometry args={[1, 2, 1]} />
-	<T.MeshStandardMaterial color="hotpink" />
-</T.Mesh>
-<T.Mesh rotation.x={-Math.PI / 2} receiveShadow>
-	<T.CircleGeometry args={[4, 40]} />
-	<T.MeshStandardMaterial color="white" />
-</T.Mesh>
+<T.PerspectiveCamera makeDefault position={[10, 10, 10]}>
+	<OrbitControls enableZoom={false} />
+</T.PerspectiveCamera>
+<T.DirectionalLight castShadow position={[8, 20, -3]} />
+<T.GridHelper args={[50]} />
+<Ground />
+<Debug />
+<Emitter />
