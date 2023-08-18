@@ -1,12 +1,20 @@
 <script lang="ts">
-	let count = 0;
+  import App from '$lib/components/App.svelte'
 </script>
 
-<div class="container h-full mx-auto flex justify-center items-center">
-	<div class="space-y-5">
-		<h1 class="h1">ValiantWolf's Portfolio</h1>
-		<h2>Counter: {count}</h2>
-		<button on:click={() => count++}>Increase</button>
-		<button on:click={() => count--}>Decrease</button>
-	</div>
+<div>
+  <App />
 </div>
+
+<style>
+  :global(body) {
+    margin: 0;
+  }
+
+  div {
+    width: 100vw;
+    height: 100vh;
+    background: rgb(13, 19, 32);
+    background: linear-gradient(180deg, rgba(13, 19, 32, 1) 0%, rgba(8, 12, 21, 1) 100%);
+  }
+</style>
